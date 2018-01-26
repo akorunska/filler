@@ -6,7 +6,7 @@
 #    By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/28 17:30:40 by akorunsk          #+#    #+#              #
-#    Updated: 2018/01/25 12:39:32 by akorunsk         ###   ########.fr        #
+#    Updated: 2018/01/25 14:35:46 by akorunsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ PRINTF_SRC_DIR = ./printf_src
 
 GNL_SRC_DIR = ./gnl_src
 
-SRC =	$(shell find $(PRINTF_SRC_DIR) $(GNL_SRC_DIR) -type f -name "*.c")
+SRC = $(shell find $(PRINTF_SRC_DIR) $(GNL_SRC_DIR) -type f -name "*.c")
 
 INC = -I printf_src/include/
 
