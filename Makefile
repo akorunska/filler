@@ -5,20 +5,18 @@
 #                                                     +:+ +:+         +:+      #
 #    By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/11/28 17:30:40 by akorunsk          #+#    #+#              #
-#    Updated: 2018/01/28 13:18:24 by akorunsk         ###   ########.fr        #
+#    Created: 2018/01/28 13:15:58 by akorunsk          #+#    #+#              #
+#    Updated: 2018/01/28 13:25:30 by akorunsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = libftprintf.a
 
-PRINTF_SRC_DIR = ./printf_src
+SRC_DIR = src/
 
-GNL_SRC_DIR = ./gnl_src
+SRC = $(shell find $(SRC_DIR) -type f -name "*.c")
 
-SRC = $(shell find $(PRINTF_SRC_DIR) $(GNL_SRC_DIR) -type f -name "*.c")
-
-INC = -I printf_src/include/
+INC = -I libft/
 
 OBJ = $(SRC:.c=.o)
 
@@ -26,35 +24,33 @@ FLAGS = -Wall -Wextra -Werror
 
 CFLAGS = -c $(FLAGS)
 
-LIBNAME = libsrc/libft.a
+LIBNAME = libft/libft.a
 
 all: $(NAME)
 
 obj: $(OBJ)
 
-$(NAME) : libmake $(OBJ)
-	@cp $(LIBNAME) $(NAME)
-	@ar r $(NAME) $(OBJ)
+$(NAME) : $(LIBNAME) $(OBJ)
+	gcc $(FLAGS) $^ -o $(NAME)
 
 %.o: %.c
-		gcc $(CFLAGS) $(INC) -o $@ $<
+	gcc $(CFLAGS) $(INC) -o $@ $<
 
-clean: libfclean
-		rm -rf $(OBJ)
+clean: libclean
+	rm -rf $(OBJ)
 
 fclean: libfclean clean
-		rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 
-test:
-	gcc main.c libftprintf.a
+$(LIBNAME): libmake
 
 libmake:
-	@make -C libsrc/ all
+	@make -C libft/ all
 
 libclean:
-	@make -C libsrc/ clean
+	@make -C libft/ clean
 
 libfclean:
-	@make -C libsrc/ fclean
+	@make -C libft/ fclean
