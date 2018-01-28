@@ -6,7 +6,7 @@
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 19:51:07 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/01/25 12:34:35 by akorunsk         ###   ########.fr       */
+/*   Updated: 2018/01/28 13:31:19 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+int				ft_printf(const char *format, ...);
 int				get_next_line(const int fd, char **line);
 
 void			*ft_memset(void *b, int c, size_t len);

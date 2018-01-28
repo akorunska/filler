@@ -6,7 +6,7 @@
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 17:46:30 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/01/25 11:04:55 by akorunsk         ###   ########.fr       */
+/*   Updated: 2018/01/28 13:31:37 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct			s_param
 
 typedef int				(*t_fptr)(va_list args, t_param *p);
 
-int						ft_printf(const char *format, ...);
 int						handle_specifier(const char *str, va_list args, \
 						int *total);
 int						is_type(char c);

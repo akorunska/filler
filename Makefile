@@ -6,11 +6,11 @@
 #    By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/28 13:15:58 by akorunsk          #+#    #+#              #
-#    Updated: 2018/01/28 13:25:30 by akorunsk         ###   ########.fr        #
+#    Updated: 2018/01/28 13:32:45 by akorunsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = akorunsk.filler
 
 SRC_DIR = src/
 
