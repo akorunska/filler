@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   place_piece.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/01/28 18:21:16 by akorunsk         ###   ########.fr       */
+/*   Created: 2018/01/28 18:20:34 by akorunsk          #+#    #+#             */
+/*   Updated: 2018/01/29 15:07:10 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdio.h" //
 #include "filler.h"
-#include <stdlib.h>
+#include <stdio.h> //
 
-int		get_player_num(void)
+int		place_piece(int num)
 {
-	int		num;
-	char	*buf;
-	int		i;
-
-	get_next_line(0, &buf);
-	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
-		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
+	char	**map;
+	int		w;
+	int		h;
+	
+	map = read_map(&w, &h);
+	fprintf(stderr, "map %i * %i\n", h, w);
+	int i = -1;
+	while (++i < h)
+		fprintf(stderr, "%s\n", map[i]);
+	num++;
 	return (0);
 }

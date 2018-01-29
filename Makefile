@@ -6,17 +6,17 @@
 #    By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/28 13:15:58 by akorunsk          #+#    #+#              #
-#    Updated: 2018/01/28 13:32:45 by akorunsk         ###   ########.fr        #
+#    Updated: 2018/01/29 14:56:37 by akorunsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = akorunsk.filler
 
-SRC_DIR = src/
+SRC_DIR = src
 
 SRC = $(shell find $(SRC_DIR) -type f -name "*.c")
 
-INC = -I libft/
+INC = -I libft/ -I include/
 
 OBJ = $(SRC:.c=.o)
 
@@ -47,7 +47,7 @@ re: fclean all
 $(LIBNAME): libmake
 
 libmake:
-	@make -C libft/ all
+	@make -C libft/
 
 libclean:
 	@make -C libft/ clean
