@@ -27,6 +27,10 @@ typedef struct		s_piece
 	char	**layout;
 	int		w;
 	int		h;
+	int		i_start;
+	int		i_end;
+	int		j_start;
+	int		j_end;
 }					t_piece;
 
 typedef struct		s_point

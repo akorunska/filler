@@ -67,11 +67,12 @@ char	**read_map(int *w, int *h, int is_map)
 		//fprintf(stderr, "got: {%s}\n", buf);
 		j = 0;
 		shift = (is_map) ? 4 : 0;
-		while (buf[j + shift])
+		while (j < *w)
 		{
 			map[i][j] = buf[j + shift];
 			j++;
 		}
+		map[i][j] = '\0';
 		//ft_strdel(&buf);
 		i++;
 	}

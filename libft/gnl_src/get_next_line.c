@@ -124,14 +124,11 @@ int			get_next_line(const int fd, char **line)
 		if ((read_q = read(fd, buf, BUFF_SIZE)) <= 0)
 			break ;
 		initial = 0;
-		if (read_q < BUFF_SIZE && buf[read_q - 1] != '\n')
-			buf[read_q + 1] = '\0';
-		else
-			buf[read_q] = '\0';
+		buf[read_q] = '\0';
 		read_q = append(read_q, line, buf, prev);
 	}
 	if (read_q == -1)
 		return (-1);
 	free(buf);
-	return ((read_q == 0 && initial) ?  : 1);
+	return ((read_q == 0 && initial) ? delete(&prev) : 1);
 }

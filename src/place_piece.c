@@ -22,16 +22,18 @@ int		placing_possible(t_map *map, t_piece *p, int i, int j)
 
 	intersections = 0;
 	i_shift = 0;
-	while (i_shift < p->h)
+	//fprintf(stderr, "iterating: %i-%i; %i-%i\n", p->i_start, p->i_end, p->j_start, p->j_end);
+	while (i_shift + p->i_start < p->i_end + 1)
 	{
-		if (i + i_shift >= map->h)
-			return (0);
 		j_shift = 0;
-		while (j_shift < p->w)
+		while (j_shift + p->j_start < p->j_end + 1)
 		{
-			if (j + j_shift >= map->w)
-				return (0);
-			if (p->layout[i_shift][j_shift] == '*')
+			// fprintf(stderr, "%i %i on map; char %c\n", i + i_shift, j + j_shift,
+			// 	map->field[i + i_shift][j + j_shift]);
+			// fprintf(stderr, "%i %i on piece; char %c\n", 
+			// 	i_shift + p->i_start, j_shift + p->j_start,
+			// 	p->layout[i_shift + p->i_start][j_shift + p->j_start]);
+			if (p->layout[i_shift + p->i_start][j_shift + p->j_start] == '*')
 			{
 				if (map->field[i + i_shift][j + j_shift] == map->ch ||
 				map->field[i + i_shift][j + j_shift] == map->ch - ('a' - 'A'))
@@ -47,6 +49,77 @@ int		placing_possible(t_map *map, t_piece *p, int i, int j)
 	return ((intersections == 1) ? 1 : 0);
 }
 
+void	trim_piece(t_piece *p)
+{
+	int		i;
+	int		j;
+	int		occured;
+
+	i = -1;
+	occured = 0;
+	p->i_start = 0;
+	p->j_start = 0;
+	p->i_end = p->h - 1;
+	p->j_end = p->w - 1;
+	while (++i < p->h && !occured)
+	{
+		occured = 0;
+		j = -1;
+		while (++j < p->w)
+			if (p->layout[i][j] == '*')
+				occured = 1;
+		if (!occured)
+			p->i_start = i + 1;
+	}
+	i = p->h;
+	while (--i > -1 && !occured)
+	{
+		occured = 0;
+		j = -1;
+		while (++j < p->w)
+			if (p->layout[i][j] == '*')
+				occured = 1;
+		if (!occured)
+			p->i_end = i - 1;
+	}
+	j = -1;
+	occured = 0;
+	while (++j < p->w && !occured)
+	{
+		occured = 0;
+		i = -1;
+		while (++i < p->h)
+			if (p->layout[i][j] == '*')
+				occured = 1;
+		if (!occured)
+			p->j_start = j + 1;	
+	}
+	j = p->w;
+	occured = 0;
+	while (--j > -1 && !occured)
+	{
+		occured = 0;
+		i = -1;
+		while (++i < p->h)
+			if (p->layout[i][j] == '*')
+				occured = 1;
+		if (!occured)
+			p->j_end = j - 1;
+	}
+}
+
+void	print_map(char **map, int h)
+{
+	int		i;
+
+	i = 0;
+	while (i < h)
+	{
+		fprintf(stderr, "\t\t++ %s ++\n", map[i]);
+		i++;
+	}
+}
+
 int		place_piece(int num)
 {
 	int			i;
@@ -59,6 +132,8 @@ int		place_piece(int num)
 	map.ch = (num == 1) ? 'o' : 'x';
 	map.enemy_ch = (num == 1) ? 'x' : 'o';
 	piece.layout = read_map(&piece.w, &piece.h, 0);
+	trim_piece(&piece);
+	print_map(map.field, map.h);
 	if (!map.field || !piece.layout)
 		return (-1);
 	i = 0;
@@ -69,7 +144,7 @@ int		place_piece(int num)
 		{
 			if (placing_possible(&map, &piece, i, j))
 			{
-				ft_printf("%i %i\n", i, j);
+				ft_printf("%i %i\n", i - piece.i_start, j - piece.j_start);
 				return (0);
 			}
 			j++;
