@@ -1,43 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/27 12:27:30 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/27 18:47:08 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
 
-int		get_player_num(void)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		num;
-	char	*buf;
-	int		i;
+	char			*ptr;
+	unsigned int	i;
 
-	get_next_line(0, &buf);
+	if (!s)
+		return (NULL);
+	ptr = ft_memalloc(ft_strlen(s) + 1);
+	if (!ptr)
+		return (NULL);
 	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
+	while (s[i] != '\0')
+	{
+		if (f && s + i)
+			ptr[i] = f(i, s[i]);
 		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	}
+	return (ptr);
 }

@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/25 18:18:19 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/29 20:55:48 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
 #include <stdlib.h>
 
-int		get_player_num(void)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int		num;
-	char	*buf;
-	int		i;
+	size_t			i;
+	unsigned char	*mem;
 
-	get_next_line(0, &buf);
 	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
+	mem = ((unsigned char*)s);
+	while (i < n)
+	{
+		if (mem[i] == (unsigned char)c)
+			return (mem + i);
 		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	}
+	return (NULL);
 }

@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/25 20:08:27 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/27 08:34:04 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
 #include <stdlib.h>
+#include <string.h>
 
-int		get_player_num(void)
+char	*ft_strdup(const char *s)
 {
-	int		num;
-	char	*buf;
+	char	*ptr;
 	int		i;
 
-	get_next_line(0, &buf);
 	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
+	while (s[i] != '\0')
 		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	ptr = (char *)malloc((i + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	ptr[i] = '\0';
+	while (i-- >= 0)
+		ptr[i] = s[i];
+	return (ptr);
 }

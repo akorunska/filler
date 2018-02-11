@@ -1,43 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/27 19:32:21 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/29 16:14:08 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
 
-int		get_player_num(void)
+static void		ft_putlongnbr_fd(long int n, int fd)
 {
-	int		num;
-	char	*buf;
-	int		i;
-
-	get_next_line(0, &buf);
-	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
-		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
+	if (n < 0)
+	{
+		n = -n;
+		ft_putchar_fd('-', fd);
+	}
+	if (n / 10 > 0)
+	{
+		ft_putlongnbr_fd(n / 10, fd);
+	}
+	ft_putchar_fd('0' + n % 10, fd);
 }
 
-int		main(void)
+void			ft_putnbr_fd(int n, int fd)
 {
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	ft_putlongnbr_fd(n, fd);
 }

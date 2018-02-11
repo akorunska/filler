@@ -1,43 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/11/24 10:41:25 by akorunsk          #+#    #+#             */
+/*   Updated: 2018/01/25 12:33:43 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 256
 
-int		get_player_num(void)
+typedef struct		s_remains
 {
-	int		num;
-	char	*buf;
-	int		i;
+	struct s_remains	*prev;
+	int					fd;
+	char				*str;
+	struct s_remains	*next;
+}					t_remains;
 
-	get_next_line(0, &buf);
-	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
-		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
+int					get_next_line(const int fd, char **line);
 
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
-}
+#endif

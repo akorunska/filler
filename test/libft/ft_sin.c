@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_sin.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/30 12:58:40 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/30 13:09:03 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
 
-int		get_player_num(void)
+double	ft_sin(double x)
 {
-	int		num;
-	char	*buf;
-	int		i;
+	double	res;
+	int		n;
+	int		k;
 
-	get_next_line(0, &buf);
-	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
-		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	n = 0;
+	res = 0.0;
+	k = 1;
+	while (n < 5)
+	{
+		res += (k * (double)ft_power(x, 2 * n + 1)) / ft_factorial(2 * n + 1);
+		k *= -1;
+		n++;
+	}
+	return (res);
 }

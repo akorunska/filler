@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/23 20:44:50 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/23 20:45:01 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
-
-int		get_player_num(void)
+char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-	int		num;
-	char	*buf;
-	int		i;
+	unsigned int i;
 
-	get_next_line(0, &buf);
 	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
+	while (src[i] != '\0' && i < n)
+	{
+		dest[i] = src[i];
 		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }

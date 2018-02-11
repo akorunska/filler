@@ -1,43 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_factorial.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/30 11:47:32 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/30 12:56:24 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
-
-int		get_player_num(void)
+int		ft_factorial(int nb)
 {
-	int		num;
-	char	*buf;
-	int		i;
-
-	get_next_line(0, &buf);
-	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
-		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	if (nb >= 13 || nb < 0)
+		return (0);
+	if (nb == 1 || nb == 0)
+		return (1);
+	return (nb * ft_factorial(nb - 1));
 }

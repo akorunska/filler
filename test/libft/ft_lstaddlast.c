@@ -1,43 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstaddlast.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/30 11:52:58 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/30 11:53:39 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
 
-int		get_player_num(void)
+t_list	*ft_lstaddlast(t_list *lst, t_list *new)
 {
-	int		num;
-	char	*buf;
-	int		i;
+	t_list	*cur;
 
-	get_next_line(0, &buf);
-	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
-		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	cur = lst;
+	if (!new)
+		return (lst);
+	else
+		new->next = NULL;
+	if (!lst)
+		return (new);
+	while (cur->next)
+		cur = cur->next;
+	cur->next = new;
+	return (lst);
 }

@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_cos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/30 11:59:32 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/30 13:19:33 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
 
-int		get_player_num(void)
+double	ft_cos(double x)
 {
-	int		num;
-	char	*buf;
-	int		i;
+	double	res;
+	int		n;
+	int		k;
 
-	get_next_line(0, &buf);
-	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
-		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	n = 0;
+	res = 0.0;
+	k = 1;
+	while (n < 6)
+	{
+		res += (k * (double)ft_power(x, 2 * n)) / ft_factorial(2 * n);
+		k *= -1;
+		n++;
+	}
+	return (res);
 }

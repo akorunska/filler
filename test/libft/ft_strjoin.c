@@ -1,43 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/27 20:12:33 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/28 17:50:14 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
 
-int		get_player_num(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		num;
-	char	*buf;
-	int		i;
+	int		len;
+	char	*ptr;
 
-	get_next_line(0, &buf);
-	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
-		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	if (!s1 || !s2)
+		return (NULL);
+	len = ft_strlen(s1);
+	ptr = (char *)ft_memalloc(sizeof(char) * (len + ft_strlen(s2) + 1));
+	if (!ptr)
+		return (NULL);
+	ft_strcat(ptr, s1);
+	ft_strcat(ptr, s2);
+	return (ptr);
 }

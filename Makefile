@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = akorunsk.filler
+NAME = resources/players/akorunsk.filler
 
 SRC_DIR = src
 

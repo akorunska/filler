@@ -3,138 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: anesteru <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/24 10:41:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/01/25 12:33:58 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/12/29 14:23:08 by anesteru          #+#    #+#             */
+/*   Updated: 2017/12/29 14:23:14 by anesteru         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
-#include "get_next_line.h"
 #include "../libft.h"
-#include <stdlib.h>
+#include "stdlib.h"
+#include "get_next_line.h"
 
-/*
-**  -1 	-- error
-** 	-2 	-- go out of function
-** 	1 	-- continue reading
-*/
-
-int			delete(t_remains **to_del)
+char	*get_longer_line(char *line, size_t n)
 {
-	t_remains	*d;
+	char		*rewritten_line;
+	size_t		i;
 
-	if (*to_del)
+	rewritten_line = ft_strnew(ft_strlen(line) + n);
+	i = 0;
+	while (line[i] != '\0')
 	{
-		d = *to_del;
-		if (d->prev)
-			d->prev->next = d->next;
-		if (d->next)
-			d->next->prev = d->prev;
-		ft_memdel((void **)to_del);
+		rewritten_line[i] = line[i];
+		i++;
 	}
-	return (0);
+	free(line);
+	line = NULL;
+	return (rewritten_line);
 }
 
-t_remains	*find(t_remains *head, int fd)
+int		get_line(char *stack, char **line)
 {
-	t_remains	*prev;
-	t_remains	*n;
+	char		*ptr;
+	size_t		i;
+	size_t		n;
 
-	prev = NULL;
-	while (head)
-	{
-		if (head->fd == fd)
-			return (head);
-		prev = head;
-		head = head->next;
-	}
-	n = (t_remains *)malloc(sizeof(t_remains));
-	if (!n)
-		return (NULL);
-	n->fd = fd;
-	n->next = NULL;
-	n->prev = prev;
-	n->str = NULL;
-	if (prev)
-		prev->next = n;
-	return (n);
-}
-
-int			append(int read_q, char **line, char *buf, t_remains *prev)
-{
-	char	*pos;
-	char	*temp;
-
-	read_q++;
-	pos = ft_memchr(buf, '\n', ft_strlen(buf));
-	if (!pos)
-	{
-		temp = ft_strjoin(*line, buf);
-		free(*line);
-		*line = temp;
-		return (1);
-	}
-	prev->str = ft_strsub(buf, (pos + 1) - buf, ft_strchr(buf, '\0') - pos - 1);
-	*pos = '\0';
-	temp = ft_strjoin(*line, buf);
-	free(*line);
-	*line = temp;
-	if (!temp)
-		return (-1);
-	return (-2);
-}
-
-int			get_prev_line(char **line, t_remains **p, const int fd, char **buf)
-{
-	static	t_remains	*head;
-
-	*p = NULL;
-	*buf = NULL;
-	if (BUFF_SIZE <= 0 || line == NULL)
-		return (-1);
-	if (!(*buf = (char *)malloc(sizeof(char) * BUFF_SIZE + 1)))
-		return (-1);
-	*line = ft_strnew(1);
-	*p = find(head, fd);
-	if (!(*p))
-		return (-1);
-	if (!head)
-		head = *p;
-	if ((*p)->fd == fd && (*p)->str != NULL)
-		return (append((ft_strlen((*p)->str)), line, (*p)->str, *p));
-	else
-		return (1);
-}
-
-int			get_next_line(const int fd, char **line)
-{
-	t_remains	*prev;
-	char		*buf;
-	int			read_q;
-	int			initial;
-
-	read_q = get_prev_line(line, &prev, fd, &buf);
-	initial = 1;
-	while (read_q > 0 && line)
-	{
-		if ((read_q = read(fd, buf, BUFF_SIZE)) <= 0)
-			break ;
-		initial = 0;
-		if (read_q < BUFF_SIZE && buf[read_q - 1] != '\n')
+	i = 0;
+	while (stack[i] != '\n')
+		if (stack[i++] == '\0')
 		{
-			buf[read_q] = '\n';
-			buf[read_q + 1] = '\0';
+			if ((n = ft_strlen(stack)) != 0)
+			{
+				*line = !(*line) ? ft_strnew(i) : get_longer_line(*line, i);
+				*line = ft_strncat(*line, stack, n);
+				ft_bzero(stack, BUFF_SIZE);
+			}
+			return (0);
 		}
-		else
-			buf[read_q] = '\0';
-		read_q = append(read_q, line, buf, prev);
-	}
-	if (read_q == -1)
+	ptr = stack + i;
+	*line = !(*line) ? ft_strnew(i) : get_longer_line(*line, i);
+	*line = ft_strncat(*line, stack, i);
+	ft_memmove(stack, ptr + 1, ft_strlen(ptr));
+	return (1);
+}
+
+int		get_next_line(const int fd, char **line)
+{
+	size_t		bytes_read;
+	static char	*stack[4864];
+
+	if (BUFF_SIZE <= 0 || fd < 0 || fd > 4864)
 		return (-1);
-	free(buf);
-	return ((read_q == 0 && initial) ? delete(&prev) : 1);
+	if (!line || (read(fd, stack[fd], 0) == -1))
+		return (-1);
+	if (stack[fd] == NULL && (stack[fd] = ft_strnew(BUFF_SIZE)) == NULL)
+		return (-1);
+	*line = NULL;
+	if (get_line(stack[fd], line) == 1)
+		return (1);
+	while ((bytes_read = read(fd, stack[fd], BUFF_SIZE)) > 0)
+	{
+		stack[fd][bytes_read] = '\0';
+		if (get_line(stack[fd], line) == 1)
+			return (1);
+	}
+	if (*line != NULL)
+		return (1);
+	free(stack[fd]);
+	stack[fd] = NULL;
+	return (0);
 }

@@ -1,43 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/28 13:27:23 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/02/07 19:43:15 by akorunsk         ###   ########.fr       */
+/*   Created: 2017/10/23 20:57:06 by akorunsk          #+#    #+#             */
+/*   Updated: 2017/10/27 10:15:02 by akorunsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdio.h" //
-#include "filler.h"
-#include <stdlib.h>
+#include <string.h>
 
-int		get_player_num(void)
+int		ft_strncmp(char *s1, char *s2, size_t n)
 {
-	int		num;
-	char	*buf;
-	int		i;
+	unsigned int	j;
 
-	get_next_line(0, &buf);
-	i = 0;
-	while (buf[i] && !ft_isdigit(buf[i]))
-		i++;
-	num = ft_atoi(buf +  i);
-	free(buf);
-	return (num);
-}
-
-int		main(void)
-{
-	int		num;
-	int		end;
-
-	num = get_player_num();
-	end = 0;
-	while (!end)
-		end = place_piece(num);	
-	return (0);
+	j = 0;
+	if (n == 0)
+		return (0);
+	while ((unsigned char)s1[j] == (unsigned char)s2[j] && \
+			s1[j] != '\0' && s2[j] != '\0' && j < n)
+	{
+		j++;
+	}
+	if (j == n)
+		return ((unsigned char)s1[j - 1] - (unsigned char)s2[j - 1]);
+	return ((unsigned char)s1[j] - (unsigned char)s2[j]);
 }

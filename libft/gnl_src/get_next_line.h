@@ -3,25 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nbouchib <nbouchib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/24 10:41:25 by akorunsk          #+#    #+#             */
-/*   Updated: 2018/01/25 12:33:43 by akorunsk         ###   ########.fr       */
+/*   Created: 2014/11/23 14:23:22 by nbouchib          #+#    #+#             */
+/*   Updated: 2014/12/03 02:15:47 by nbouchib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 256
 
-typedef struct		s_remains
-{
-	struct s_remains	*prev;
-	int					fd;
-	char				*str;
-	struct s_remains	*next;
-}					t_remains;
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <unistd.h>
 
-int					get_next_line(const int fd, char **line);
+# define BUFF_SIZE 1
+
+int		get_next_line(int fd, char **line);
 
 #endif
