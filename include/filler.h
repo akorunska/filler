@@ -40,8 +40,12 @@ typedef struct		s_point
 	int		min_dist;
 }					t_point;
 
-int		place_piece(int num);
+int					place_piece(int num);
 
-char	**read_map(int *w, int *h, int is_map);
+char				**read_map(int *w, int *h, int is_map);
+
+void				trim_piece(t_piece *p);
+
+int					count_dist(t_map m, t_piece p, int ins_i, int ins_j);
 
 #endif
