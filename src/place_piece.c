@@ -22,19 +22,15 @@ int		placing_possible(t_map *map, t_piece *p, int i, int j)
 
 	intersections = 0;
 	i_shift = 0;
-	//fprintf(stderr, "iterating: %i-%i; %i-%i\n", p->i_start, p->i_end, p->j_start, p->j_end);
 	while (i_shift + p->i_start < p->i_end + 1)
 	{
 		j_shift = 0;
 		while (j_shift + p->j_start < p->j_end + 1)
 		{
-			// fprintf(stderr, "%i %i on map; char %c\n", i + i_shift, j + j_shift,
-			// 	map->field[i + i_shift][j + j_shift]);
-			// fprintf(stderr, "%i %i on piece; char %c\n", 
-			// 	i_shift + p->i_start, j_shift + p->j_start,
-			// 	p->layout[i_shift + p->i_start][j_shift + p->j_start]);
 			if (p->layout[i_shift + p->i_start][j_shift + p->j_start] == '*')
 			{
+				if (i + i_shift >= map->h || j + j_shift >= map->w)
+					return (0);
 				if (map->field[i + i_shift][j + j_shift] == map->ch ||
 				map->field[i + i_shift][j + j_shift] == map->ch - ('a' - 'A'))
 					intersections++;
@@ -133,7 +129,7 @@ int		place_piece(int num)
 	map.enemy_ch = (num == 1) ? 'x' : 'o';
 	piece.layout = read_map(&piece.w, &piece.h, 0);
 	trim_piece(&piece);
-	print_map(map.field, map.h);
+	//print_map(map.field, map.h);
 	if (!map.field || !piece.layout)
 		return (-1);
 	i = 0;
