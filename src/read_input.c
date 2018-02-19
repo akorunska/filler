@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
+#include <stdio.h>
 
 void	fill_size(int *w, int *h)
 {
@@ -49,7 +50,6 @@ char	**read_map(int *w, int *h, int is_map)
 	if (!*w && !*h)
 		return (NULL);
 	map = (char **)malloc(sizeof(char *) * (*h + 1));
-	ft_bzero(map, (*h + 1) * sizeof(char *));
 	if (is_map)
 	{
 		get_next_line(0, &buf);
@@ -59,7 +59,6 @@ char	**read_map(int *w, int *h, int is_map)
 	while (i < *h)
 	{
 		map[i] = (char *)malloc(sizeof(char) * (*w + 1));
-		ft_bzero(map[i], (*w + 1) * sizeof(char));
 		get_next_line(0, &buf);
 		j = 0;
 		shift = (is_map) ? 4 : 0;

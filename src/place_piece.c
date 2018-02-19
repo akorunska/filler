@@ -12,6 +12,7 @@
 
 #include "filler.h"
 #include "libft.h"
+#include "stdio.h"
 
 int		placing_possible(t_map *map, t_piece *p, int i, int j)
 {
@@ -70,6 +71,20 @@ int		find_solution(t_map *map, t_piece *piece, t_point *solution)
 	return ((temp == -1) ? 0 : 1);
 }
 
+void		print_map(char **map, int h)
+{
+	int		i;
+
+	i = 0;
+	while (i < h)
+	{
+		fprintf(stderr, "\t%s\n", map[i]);
+		i++;
+	}
+	fprintf(stderr, "\n\n");
+}
+
+
 int		place_piece(int num)
 {
 	t_map		map;
@@ -77,6 +92,7 @@ int		place_piece(int num)
 	t_point		solution;
 
 	map.field = read_map(&map.w, &map.h, 1);
+	print_map(map.field, map.h);
 	map.ch = (num == 1) ? 'o' : 'x';
 	map.enemy_ch = (num == 1) ? 'x' : 'o';
 	piece.layout = read_map(&piece.w, &piece.h, 0);

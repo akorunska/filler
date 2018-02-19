@@ -17,27 +17,13 @@
 #include "../libft.h"
 #include <stdlib.h>
 
+#include <stdio.h> //
+
 /*
 **  -1 	-- error
 ** 	-2 	-- go out of function
 ** 	1 	-- continue reading
 */
-
-int			delete(t_remains **to_del)
-{
-	t_remains	*d;
-
-	if (*to_del)
-	{
-		d = *to_del;
-		if (d->prev)
-			d->prev->next = d->next;
-		if (d->next)
-			d->next->prev = d->prev;
-		ft_memdel((void **)to_del);
-	}
-	return (0);
-}
 
 t_remains	*find(t_remains *head, int fd)
 {
@@ -130,5 +116,5 @@ int			get_next_line(const int fd, char **line)
 	if (read_q == -1)
 		return (-1);
 	free(buf);
-	return ((read_q == 0 && initial) ? delete(&prev) : 1);
+	return ((read_q == 0 && initial) ? 0 : 1);
 }
