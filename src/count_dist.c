@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "filler.h"
-#include <stdio.h> //
 
-void		insert_piece(t_map *m, t_piece *p, int ins_i, int ins_j)
+void	insert_piece(t_map *m, t_piece *p, int ins_i, int ins_j)
 {
 	int		i;
 	int		j;

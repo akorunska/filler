@@ -37,7 +37,7 @@ t_map	*copy_map(t_map *orig)
 	return (res);
 }
 
-void	free_map(t_map	*to_del)
+void	free_map(t_map *to_del)
 {
 	free_field(to_del->field, to_del->h);
 	free(to_del);

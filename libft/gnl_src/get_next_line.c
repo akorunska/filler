@@ -17,8 +17,6 @@
 #include "../libft.h"
 #include <stdlib.h>
 
-#include <stdio.h> //
-
 /*
 **  -1 	-- error
 ** 	-2 	-- go out of function
