@@ -27,7 +27,7 @@ void	output_result(t_point *solution, int rv)
 		ft_putnbr(solution->i);
 		ft_putchar(' ');
 		ft_putnbr(solution->j);
-		ft_putnbr('\n');
+		ft_putchar('\n');
 	}
 	else
 		ft_putstr("0 0\n");

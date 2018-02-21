@@ -3,3 +3,4 @@
 *.a
 *.filler
 .*
+resources/*
