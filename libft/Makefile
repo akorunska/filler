@@ -6,21 +6,21 @@
 #    By: akorunsk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/28 17:30:40 by akorunsk          #+#    #+#              #
-#    Updated: 2018/01/28 13:18:24 by akorunsk         ###   ########.fr        #
+#    Updated: 2018/02/21 10:08:22 by akorunsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-PRINTF_SRC_DIR = ./printf_src
+LIB_SRC_DIR = ./libsrc
 
 GNL_SRC_DIR = ./gnl_src
 
-SRC = $(shell find $(PRINTF_SRC_DIR) $(GNL_SRC_DIR) -type f -name "*.c")
-
-INC = -I printf_src/include/
+SRC = $(shell find $(LIB_SRC_DIR) $(GNL_SRC_DIR) -type f -name "*.c")
 
 OBJ = $(SRC:.c=.o)
+
+INC = -I ../libft.h
 
 FLAGS = -Wall -Wextra -Werror
 
@@ -32,29 +32,16 @@ all: $(NAME)
 
 obj: $(OBJ)
 
-$(NAME) : libmake $(OBJ)
-	@cp $(LIBNAME) $(NAME)
-	@ar r $(NAME) $(OBJ)
+$(NAME) : $(OBJ)
+	@ar -rc $(NAME) $(OBJ)
 
 %.o: %.c
-		gcc $(CFLAGS) $(INC) -o $@ $<
+		gcc -o $@ $< $(CFLAGS) $(INC)
 
-clean: libfclean
+clean:
 		rm -rf $(OBJ)
 
-fclean: libfclean clean
+fclean: clean
 		rm -rf $(NAME)
 
 re: fclean all
-
-test:
-	gcc main.c libftprintf.a
-
-libmake:
-	@make -C libsrc/ all
-
-libclean:
-	@make -C libsrc/ clean
-
-libfclean:
-	@make -C libsrc/ fclean

@@ -81,32 +81,30 @@ void	replase_stars(t_map *m)
 	}
 }
 
-int		count_dist(t_map m, t_piece p, int ins_i, int ins_j)
+int		count_dist(t_map *m, t_piece *p, int ins_i, int ins_j)
 {
 	int		i;
 	int		j;
 	int		occured;
 	int		wave;
 
-	insert_piece(&m, &p, ins_i, ins_j);
-	// print_map(m.field, m.h);
+	insert_piece(m, p, ins_i, ins_j);
 	occured = 0;
 	wave = 0;
 	while (!occured)
 	{
 		i = -1;
-		while (++i < m.h && !occured)
+		while (++i < m->h && !occured)
 		{
 			j = -1;
-			while (++j < m.w && !occured)
+			while (++j < m->w && !occured)
 			{
-				if (m.field[i][j] == '*')
-					if (!insert_around(&m, i, j))
+				if (m->field[i][j] == '*')
+					if (!insert_around(m, i, j))
 						occured = 1;
 			}
 		}
-		// print_map(m.field, m.h);
-		replase_stars(&m);
+		replase_stars(m);
 		wave++;
 	}
 	return (wave);

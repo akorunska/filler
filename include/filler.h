@@ -46,6 +46,10 @@ char				**read_map(int *w, int *h, int is_map);
 
 void				trim_piece(t_piece *p);
 
-int					count_dist(t_map m, t_piece p, int ins_i, int ins_j);
+int					count_dist(t_map *m, t_piece *p, int ins_i, int ins_j);
+
+t_map				*copy_map(t_map *orig);
+void				free_map(t_map	*to_del);
+void				free_field(char **field, int h);
 
 #endif
